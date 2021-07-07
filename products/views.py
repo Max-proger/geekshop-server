@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import json
 import datetime
+from  products.models import ProductCategory, Product
 
 
 # Create your views here.
@@ -11,8 +12,11 @@ def index(request):
 
 
 def products(request):
-    context = {'title': 'GeekShop - Каталог'}
-    with open('products/fixtures/goods.json', encoding='utf-8') as json_file:
-        context['products'] = json.load(json_file)
-    context['time'] = datetime.datetime.now()
+    context = {
+        'title': 'GeekShop - Каталог',
+        'products': Product.objects.all(),
+        'categories': ProductCategory.objects.all(),
+        'time': datetime.datetime.now(),
+    }
+
     return render(request, 'products/products.html', context)
