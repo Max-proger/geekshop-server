@@ -29,3 +29,8 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+    def clean_password1(self):
+        password1 = self.cleaned_data['password1']
+        if len(password1) < 5:
+            raise forms.ValidationError('Пароль слишком короткий')
+        return password1
