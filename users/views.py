@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth, messages
 from django.urls import reverse
+from django.db.models import Sum
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from baskets.models import Basket
@@ -47,10 +48,17 @@ def profile (request):
             return HttpResponseRedirect(reverse('users:profile'))
     else:
         form = UserProfileForm(instance=user)
+    baskets = Basket.objects.filter(user=user)
+    total_sum = 0
+    for basket in baskets:
+        total_sum += basket.sum()
+    total_quantity = baskets.aggregate(Sum('quantity'))
     context = {
         'title': 'GeekShop - Личный кабинет',
         'form': form,
         'baskets': Basket.objects.filter(user=user),
+        'total_sum': total_sum,
+        'total_quantity': total_quantity,
     }
     return render(request, 'users/profile.html', context)
 
