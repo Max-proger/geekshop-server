@@ -35,7 +35,6 @@ def registration(request):
     context = {
         'title': 'GeekShop - Регистрация',
         'form': form,
-        'baskets': Basket.objects.all(),
     }
     return render(request, 'users/registration.html', context)
 
@@ -50,6 +49,7 @@ def profile (request):
     context = {
         'title': 'GeekShop - Личный кабинет',
         'form': form,
+        'baskets': Basket.objects.all(),
     }
     return render(request, 'users/profile.html', context)
 
