@@ -3,6 +3,7 @@ from django.urls import reverse
 from users.models import User
 from admins.forms import UserAdminRegistrationForm
 
+
 def index(request):
     context = {'title': 'Админ-панель'}
     return render(request, 'admins/index.html', context)
@@ -27,6 +28,9 @@ def admin_users_create(request):
     }
     return render(request, 'admins/admin-users-create.html', context)
 
-def admin_users_update_delete(request):
-    return render(request, 'admin/admin-users-update-delete')
 
+def admin_users_update(request, pk=None):
+    return render(request, 'admins/admin-users-update-delete.html')
+
+def admin_users_remove(request, pk=None):
+    pass
