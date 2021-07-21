@@ -46,7 +46,7 @@ def admin_users_update(request, pk):
     return render(request, 'admins/admin-users-update-delete.html', context)
 
 @user_passes_test(lambda u: u.is_staff)
-def admin_users_remove(request, pk=None):
+def admin_users_remove(request, pk):
     user = User.objects.get(id=pk)
     user.is_active = False
     user.save()
